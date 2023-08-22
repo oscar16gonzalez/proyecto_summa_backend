@@ -1,7 +1,7 @@
 const { response, request } = require('express');
 const twilio = require('twilio');
 const accountSid = 'AC25d6a398ba3417ca31f9c7a4768c2f28';
-const authToken = '1d32b290da5c074754e0df961d7543b0';
+const authToken = 'bc02b1e867f2ea933256350a0c80511c';
 const cliente = new twilio(accountSid, authToken);
 
 //Modelo de rutas

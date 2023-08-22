@@ -78,7 +78,7 @@ const rutasDelete = async(req, res = response) => {
         .create({
             body: `Se ha cancelado la ruta: \n Origen : ${_ruta.origen} - Destino : ${_ruta.destino}  \n para la fecha  ${_ruta.fecha}`,
             to: '+573128502119',
-            from: process.env.NUMBER_PHONE
+            from: process.env.NUMBER_PHONE || '+14028242925'
         })
         .then(message => console.log(message.sid));
 }

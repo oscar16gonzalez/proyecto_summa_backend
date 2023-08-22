@@ -1,7 +1,7 @@
 const { response, request } = require('express');
 const twilio = require('twilio');
-const accountSid = "AC25d6a398ba3417ca31f9c7a4768c2f28";
-const authToken = "1d32b290da5c074754e0df961d7543b0";
+const accountSid = 'AC25d6a398ba3417ca31f9c7a4768c2f28';
+const authToken = '1d32b290da5c074754e0df961d7543b0';
 const cliente = new twilio(accountSid, authToken);
 
 //Modelo de rutas
@@ -78,7 +78,7 @@ const rutasDelete = async(req, res = response) => {
         .create({
             body: `Se ha cancelado la ruta: \n Origen : ${_ruta.origen} - Destino : ${_ruta.destino}  \n para la fecha  ${_ruta.fecha}`,
             to: '+573128502119',
-            from: process.env.NUMBER_PHONE || '+14028242925'
+            from: '+14028242925'
         })
         .then(message => console.log(message.sid));
 }

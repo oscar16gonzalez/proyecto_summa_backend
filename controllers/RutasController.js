@@ -1,8 +1,5 @@
 const { response, request } = require('express');
-const twilio = require('twilio');
-const accountSid = 'AC25d6a398ba3417ca31f9c7a4768c2f28';
-const authToken = 'bc02b1e867f2ea933256350a0c80511c';
-const cliente = new twilio(accountSid, authToken);
+
 
 //Modelo de rutas
 const Rutas = require('../models/ruta');
@@ -74,13 +71,13 @@ const rutasDelete = async(req, res = response) => {
     res.json(ruta);
 
     //Integracion con Twilio para envio de mensajeria a usuario
-    cliente.messages
-        .create({
-            body: `Se ha cancelado la ruta: \n Origen : ${_ruta.origen} - Destino : ${_ruta.destino}  \n para la fecha  ${_ruta.fecha}`,
-            to: '+573128502119',
-            from: '+14028242925'
-        })
-        .then(message => console.log(message.sid));
+    // cliente.messages
+    //     .create({
+    //         body: `Se ha cancelado la ruta: \n Origen : ${_ruta.origen} - Destino : ${_ruta.destino}  \n para la fecha  ${_ruta.fecha}`,
+    //         to: '+573128502119',
+    //         from: '+14028242925'
+    //     })
+    //     .then(message => console.log(message.sid));
 }
 
 module.exports = {

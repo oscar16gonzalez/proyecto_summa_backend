@@ -1,5 +1,11 @@
 const { response, request } = require('express');
 
+const twilio = require('twilio');
+
+const accountSid = "AC25d6a398ba3417ca31f9c7a4768c2f28";
+const authToken = "bc02b1e867f2ea933256350a0c80511c";
+
+const cliente = new twilio(accountSid, authToken);
 
 //Modelo de rutas
 const Rutas = require('../models/ruta');
@@ -31,6 +37,14 @@ const rutasGetUser = async(req = request, res = response) => {
     });
 }
 
+const retornarUsuariosPorRuta = async(req = request, res = response) => {
+    const rutaId = req.params.id;
+    const rutas = await Rutas.find({ usuario: rutaId });
+    res.json({
+        rutas
+    });
+}
+
 //Retorna las rutas creadas por un usuario
 const rutasGetUserCreate = async(req = request, res = response) => {
     const usuario = req.params.id;
@@ -50,6 +64,17 @@ const rutaPost = async(req, res = response) => {
         ruta
     });
 }
+
+const suscripcionPost = async(req, res = response) => {
+    const { usuario_id, ruta } = req.body;
+    const suscripcion = new Rutas({  usuario_id, ruta });
+
+    await suscripcion.save();
+    res.json({
+        suscripcion
+    });
+}
+
 
 const rutasPut = async(req, res = response) => {
     const { id } = req.params;
@@ -71,13 +96,13 @@ const rutasDelete = async(req, res = response) => {
     res.json(ruta);
 
     //Integracion con Twilio para envio de mensajeria a usuario
-    // cliente.messages
-    //     .create({
-    //         body: `Se ha cancelado la ruta: \n Origen : ${_ruta.origen} - Destino : ${_ruta.destino}  \n para la fecha  ${_ruta.fecha}`,
-    //         to: '+573128502119',
-    //         from: '+14028242925'
-    //     })
-    //     .then(message => console.log(message.sid));
+    cliente.messages
+        .create({
+            body: `Se ha cancelado la ruta: \n Origen : ${_ruta.origen} - Destino : ${_ruta.destino}  \n para la fecha  ${_ruta.fecha}`,
+            to: '+573128502119',
+            from: '+14028242925'
+        })
+        .then(message => console.log(message.sid));
 }
 
 module.exports = {
@@ -86,5 +111,7 @@ module.exports = {
     rutasPut,
     rutasDelete,
     rutasGetUser,
-    rutasGetUserCreate
+    rutasGetUserCreate,
+    retornarUsuariosPorRuta,
+    suscripcionPost
 }

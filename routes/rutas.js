@@ -12,8 +12,14 @@ const {
         rutasPut,
         rutasDelete,
         rutasGetUser,
-        rutasGetUserCreate
+        rutasGetUserCreate,
+        retornarUsuariosPorRuta,
+        
     } = require('../controllers/RutasController');
+
+const {
+       suscripcionPost
+    } = require('../controllers/SuscripcionesController');
     
 const router = Router();
 
@@ -27,6 +33,8 @@ router.post('/', [
     check('destino', 'El destino es requerida').not().isEmpty(),
     validarCampos
 ], rutaPost);
+
+router.post('/suscripcion', suscripcionPost);
 
 router.put('/:id', [
     check('id', 'No es un ID válido').isMongoId(),
@@ -45,6 +53,8 @@ router.delete('/:id', [
 router.get('/:id', rutasGetUser);
 
 router.get('/mis_rutas/:id', rutasGetUserCreate);
+
+router.get('/mis_rutas/prueba/:id', retornarUsuariosPorRuta);
 
 
 

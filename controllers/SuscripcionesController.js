@@ -23,7 +23,6 @@ const suscripcionGet = async(req = request, res = response) => {
 
 //Creacion de usuarios
 const suscripcionPost = async(req, res = response) => {
-
     const { ruta, usuario_id } = req.body;
     const suscripcion = new Suscripcion({ ruta, usuario_id});
 
@@ -36,7 +35,6 @@ const suscripcionPost = async(req, res = response) => {
 }
 
 const suscripcionPut = async(req, res = response) => {
-
     const { id } = req.params;
     const { _id, ...resto } = req.body;
 
@@ -47,7 +45,6 @@ const suscripcionPut = async(req, res = response) => {
 
 
 const deleteSuscripcion = async(req, res = response) => {
-
     const { id } = req.params;
 
     // Fisicamente lo borramos
